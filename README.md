@@ -81,7 +81,6 @@ xfce4-goodies
 sudo snap install core
 
 sudo snap install gitkraken --classic
-sudo snap install discord
 sudo snap install code --classic
 
 sudo snap install clion --classic
