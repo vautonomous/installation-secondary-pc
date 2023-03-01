@@ -90,6 +90,14 @@ sudo add-apt-repository -y ppa:christian-boxdoerfer/fsearch-daily
 sudo apt install -y fsearch
 ```
 
+# Create default folders
+
+```sh
+cd && mkdir projects programs dds_logs
+```
+
+Clone this repository into ~/programs
+
 ## trashy
 
 ```bash
@@ -102,14 +110,6 @@ automake
 make
 sudo make install
 ```
-
-# Create default folders
-
-```sh
-cd && mkdir projects programs dds_logs
-```
-
-Clone this repository into ~/programs
 
 # dotfiles
 
