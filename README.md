@@ -261,7 +261,7 @@ Install the Autoware following https://github.com/vautonomous/autoware-documenta
 # Install the UI Process Manager service
 
 ```bash
-cp ~/programs/installation-secondary-pc/services/ui_process_manager.service /etc/systemd/system/
+sudo cp ~/programs/installation-secondary-pc/services/ui_process_manager.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable ui_process_manager.service
 sudo systemctl start ui_process_manager.service
