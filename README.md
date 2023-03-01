@@ -9,6 +9,7 @@ Go to IPv4:
 - Address: 192.168.1.133
 - Netmask: 24 (will turn into 255.255.255.0)
 - Gateway: 192.168.1.1
+- DNS: 8.8.8.8 and Automatic is enabled.
 
 Apply
 
