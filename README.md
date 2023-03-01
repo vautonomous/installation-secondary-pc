@@ -254,7 +254,7 @@ find ~/projects/volt_scripts/ -type f -name "*" -exec chmod +x {} \;
 
 ```
 
-Install the Autoware following https://github.com/vautonomous/autoware-documentation/blob/main/docs/installation/autoware/source-installation.md
+Install the Autoware following https://github.com/vautonomous/autoware-documentation/blob/main/docs/installation/autoware/source-installation.md (Don't use ansible!)
 
 
 # Install the UI Process Manager service
