@@ -108,7 +108,7 @@ sudo make install
 # Create default folders
 
 ```sh
-cd && mkdir projects programs
+cd && mkdir projects programs dds_logs
 ```
 
 Clone this repository into ~/programs
