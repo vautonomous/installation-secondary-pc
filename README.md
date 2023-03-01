@@ -16,6 +16,17 @@ Flick the switch near the interface twice to restart and apply the settings.
 
 # Install basic programs
 
+Open up Software & Updates app
+
+- Ubuntu Software
+  - Download from: Main server
+- Updates
+  - Subscibed to: Security and recommended updates
+  - Aut. check for updates: Never
+  - When there are sec upd: Display immediately
+  - When there are other upd: Display every two weeks
+  - Notify me of a new Ub ver: Never
+
 ```bash
 $ sudo apt update && sudo apt dist-upgrade
 
@@ -58,7 +69,9 @@ flatpak \
 brightnessctl \
 stress \
 openssh-server \
-tightvncserver
+tightvncserver \
+xfce4 \
+xfce4-goodies
 ```
 
 ```bash
@@ -115,16 +128,41 @@ chmod +x ./install_links.sh
 # Set up ssh and vnc
 
 ```bash
+sudo systemctl enable ssh
+sudo systemctl start ssh
+sudo systemctl status ssh
+```
+
+Run `vncserver` once and give it a password for connecting to it later on. Default: `asdasd`
+
+Then terminate it with `vncserver -kill :3` (replace `3` with the instance that got launched on previous command.)
+
+```bash
 cp ~/programs/installation-secondary-pc/dotfiles/.vnc ~/.vnc
 chmod +x ~/.vnc/*
 
 sudo ufw disable
 ```
 
-## Default directories
+Then configure the service using:
 
 ```bash
-gsettings set org.gnome.gnome-screenshot auto-save-directory "~/Pictures/screenshots"
+cp ~/programs/installation-secondary-pc/services/vncserver@.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable vncserver@1.service
+sudo systemctl start vncserver@1.service
+```
+
+To connect to it from the primary pc, use the following commands from the primary pc:
+
+```bash
+# On terminal 1
+## Following command will not return anything and block that terminal
+ssh -L 59000:localhost:5901 -C -N -l nuc 192.168.1.133
+
+# On terminal 2
+vncviewer
+## connect to localhost:59000 with default `asdasd` password.
 ```
 
 ## Drivers
@@ -174,17 +212,34 @@ gsettings set org.gnome.desktop.session idle-delay 0
 
 # chrony configuration
 
+Also configure the chrony on the other computer to share its clock with this pc's ip address.
+
 ```bash
 cd
-mkdir configs_backup && cd configs_backup
-cp /etc/chrony/chrony.conf ./
-cd ~/programs/installation-secondary-pc
-sudo cp configs/chrony.conf /etc/chrony/chrony.conf
+mkdir configs_backup
+cp /etc/chrony/chrony.conf ~/configs_backup
+sudo cp ~/programs/installation-secondary-pc/configs/chrony.conf /etc/chrony/chrony.conf
 
 sudo systemctl restart chronyd.service
 systemctl is-active chronyd.service
 chronyc sources -v
 ```
+
+# DDS performance configurations
+
+```bash
+sudo gedit /etc/sysctl.d/10-cyclone-max.conf
+```
+
+Add the following into the file:
+
+```conf
+net.core.rmem_max=2147483647
+net.ipv4.ipfrag_time=3
+net.ipv4.ipfrag_high_thresh=134217728
+```
+
+reboot the computer.
 
 # Clone the repositories
 
@@ -198,3 +253,18 @@ cd projects/volt_scripts/
 find ~/projects/volt_scripts/ -type f -name "*" -exec chmod +x {} \;
 
 ```
+
+Install the Autoware following https://github.com/vautonomous/autoware-documentation/blob/main/docs/installation/autoware/source-installation.md
+
+
+# Install the UI Process Manager service
+
+```bash
+cp ~/programs/installation-secondary-pc/services/ui_process_manager.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable ui_process_manager.service
+sudo systemctl start ui_process_manager.service
+watch -n 0.1 "systemctl status ui_process_manager.service"
+```
+
+
