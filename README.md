@@ -136,7 +136,7 @@ Run `vncserver` once and give it a password for connecting to it later on. Defau
 Then terminate it with `vncserver -kill :3` (replace `3` with the instance that got launched on previous command.)
 
 ```bash
-cp ~/programs/installation-secondary-pc/dotfiles/.vnc ~/.vnc
+cp -r ~/programs/installation-secondary-pc/dotfiles/.vnc ~/.vnc
 chmod +x ~/.vnc/*
 
 sudo ufw disable
