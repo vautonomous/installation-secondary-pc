@@ -85,10 +85,6 @@ sudo snap install code --classic
 
 sudo snap install clion --classic
 
-# OBS Studio
-sudo add-apt-repository ppa:obsproject/obs-studio
-sudo apt install ffmpeg obs-studio
-
 # FSearch
 sudo add-apt-repository -y ppa:christian-boxdoerfer/fsearch-daily
 sudo apt install -y fsearch
