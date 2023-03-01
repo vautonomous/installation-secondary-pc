@@ -20,12 +20,4 @@ create_symlink_if_not_exists "$SCRIPT_DIR/.bash_aliases" "/home/nuc/.bash_aliase
 
 create_symlink_if_not_exists "$SCRIPT_DIR/.bashrc" "/home/nuc/.bashrc"
 
-create_symlink_if_not_exists "$SCRIPT_DIR/.i3blocks.conf" "/home/nuc/.i3blocks.conf"
-
-create_symlink_if_not_exists "$SCRIPT_DIR/.config/dunst" "/home/nuc/.config/dunst"
-
-create_symlink_if_not_exists "$SCRIPT_DIR/.config/i3" "/home/nuc/.config/i3"
-
-create_symlink_if_not_exists "$SCRIPT_DIR/.config/rofi" "/home/nuc/.config/rofi"
-
 create_symlink_if_not_exists "$SCRIPT_DIR/cyclonedds.xml" "/home/nuc/cyclonedds.xml"

@@ -1,17 +1,20 @@
-# installation-secondary-pc
-
 Install Ubuntu 22.04
 
-# dotfiles
+# Set the computer IP address
 
-Remove target folders/directories listed in the `install_links.sh` file.
+Go to Settings -> Network -> Wired -> Settings Gear Icon
 
-Following command will attempt to symlink them from this repo to target directory.
+Go to IPv4:
+- Manual
+- Address: 192.168.1.133
+- Netmask: 24 (will turn into 255.255.255.0)
+- Gateway: 192.168.1.1
 
-```bash
-$ chmod +x ./install_links.sh
-$ ./install_links.sh
-```
+Apply
+
+Flick the switch near the interface twice to restart and apply the settings.
+
+# Install basic programs
 
 ```bash
 $ sudo apt update && sudo apt dist-upgrade
@@ -52,25 +55,11 @@ autoconf \
 snapd \
 gnome-flashback \
 flatpak \
-brightnessctl
+brightnessctl \
+stress \
+openssh-server \
+tightvncserver
 ```
-
-## Default directories
-
-```bash
-gsettings set org.gnome.gnome-screenshot auto-save-directory "~/Pictures/screenshots"
-```
-
-## Drivers
-
-```bash
-# First https://superuser.com/questions/714391/how-do-i-remove-all-i386-architecture-packages-from-my-debian-installation
-sudo dpkg --remove-architecture i386
-
-sudo ubuntu-drivers autoinstall
-```
-
-## Others
 
 ```bash
 sudo snap install core
@@ -88,6 +77,63 @@ sudo apt install ffmpeg obs-studio
 # FSearch
 sudo add-apt-repository -y ppa:christian-boxdoerfer/fsearch-daily
 sudo apt install -y fsearch
+```
+
+## trashy
+
+```bash
+cd programs/
+git clone https://gitlab.com/trashy/trashy.git
+cd trashy/
+autoreconf --install
+automake
+./configure
+make
+sudo make install
+```
+
+# Create default folders
+
+```sh
+cd && mkdir projects programs
+```
+
+Clone this repository into ~/programs
+
+# dotfiles
+
+Remove target folders/directories listed in the `dotfiles/install_links.sh` file.
+
+Following command will attempt to symlink them from this repo to target directory.
+
+```bash
+cd ~/programs/installation-secondary-pc/dotfiles
+chmod +x ./install_links.sh
+./install_links.sh
+```
+
+# Set up ssh and vnc
+
+```bash
+cp ~/programs/installation-secondary-pc/dotfiles/.vnc ~/.vnc
+chmod +x ~/.vnc/*
+
+sudo ufw disable
+```
+
+## Default directories
+
+```bash
+gsettings set org.gnome.gnome-screenshot auto-save-directory "~/Pictures/screenshots"
+```
+
+## Drivers
+
+```bash
+# First https://superuser.com/questions/714391/how-do-i-remove-all-i386-architecture-packages-from-my-debian-installation
+sudo dpkg --remove-architecture i386
+
+sudo ubuntu-drivers autoinstall
 ```
 
 ## ROS2 Stuff
@@ -124,4 +170,31 @@ gsettings set org.gnome.desktop.session idle-delay 600
 
 # Never sleep
 gsettings set org.gnome.desktop.session idle-delay 0
+```
+
+# chrony configuration
+
+```bash
+cd
+mkdir configs_backup && cd configs_backup
+cp /etc/chrony/chrony.conf ./
+cd ~/programs/installation-secondary-pc
+sudo cp configs/chrony.conf /etc/chrony/chrony.conf
+
+sudo systemctl restart chronyd.service
+systemctl is-active chronyd.service
+chronyc sources -v
+```
+
+# Clone the repositories
+
+Clone following into ~/projects:
+- https://github.com/vautonomous/autoware
+- https://github.com/vautonomous/volt_scripts
+
+```bash
+cd projects/volt_scripts/
+
+find ~/projects/volt_scripts/ -type f -name "*" -exec chmod +x {} \;
+
 ```
