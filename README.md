@@ -145,9 +145,11 @@ sudo ufw disable
 Then configure the service using:
 
 ```bash
-cp ~/programs/installation-secondary-pc/services/vncserver@.service /etc/systemd/system/
+sudo cp ~/programs/installation-secondary-pc/services/vncserver@.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable vncserver@1.service
+# we can start the service but if a monitor is attached, it wont work due to slot 1 being occupied by the X desktop.
+# It will work correctly without the monitor attached on the next system startup.
 sudo systemctl start vncserver@1.service
 ```
 
