@@ -14,6 +14,8 @@ Apply
 
 Flick the switch near the interface twice to restart and apply the settings.
 
+Go to Settings -> Network -> Wifi -> Disable wifi.
+
 # Install basic programs
 
 Open up Software & Updates app
