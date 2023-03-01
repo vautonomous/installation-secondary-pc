@@ -1,4 +1,8 @@
-Install Ubuntu 22.04
+# OS installation
+- Install Ubuntu 22.04
+ - username: nuc
+ - swap: 20GB
+ - don't ask password on login
 
 # Set the computer IP address
 
