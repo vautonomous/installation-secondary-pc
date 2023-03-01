@@ -74,7 +74,8 @@ stress \
 openssh-server \
 tightvncserver \
 xfce4 \
-xfce4-goodies
+xfce4-goodies \
+chrony
 ```
 
 ```bash
